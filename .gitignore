@@ -5,10 +5,8 @@
 *.o
 *.ko
 *.obj
-*.elf
-*.scvd
-*.deb
-*.crf
+Project/Objects/*
+Project/Listings/*
 
 # Linker output
 *.ilk
