@@ -283,7 +283,7 @@ BaseType_t xPortStartScheduler( void )
         *pucFirstUserPriorityRegister = portMAX_8_BIT_VALUE;
 
         /* Read the value back to see how many bits stuck. */
-        ucMaxPriorityValue = *pucFirstUserPriorityRegister;
+        ucMaxPriorityValue = *pucFirstUserPriorityRegister;  // 0xF0
 
         /* The kernel interrupt priority should be set to the lowest
          * priority. */

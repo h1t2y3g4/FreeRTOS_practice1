@@ -6,6 +6,9 @@
 *.ko
 *.obj
 *.elf
+*.scvd
+*.deb
+*.crf
 
 # Linker output
 *.ilk

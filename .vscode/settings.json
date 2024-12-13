@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "stm32f10x.h": "c",
-        "*.bk": "cpp"
+        "*.bk": "cpp",
+        "freertos.h": "c"
     },
     "marscode.chatLanguage": "cn"
 }

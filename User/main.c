@@ -1,17 +1,15 @@
 #include "stm32f10x.h"
+#include "stdio.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
 #include "config.h"
-#include "stdio.h"
+#include "cli.h"
 
-
-extern void vRegisterSampleCLICommands(void);
-extern void vUARTCommandConsoleStart(unsigned long ulWantedBaud, unsigned portBASE_TYPE uxQueueLength);
 
 void hardware_init(void)
 {
-    vRegisterSampleCLICommands();
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);  // 非常重要。如果是运行FreeRTOS必须要有，并且程序运行中不准变。
 }
 
 void led_task(void *pvParameters)
@@ -32,6 +30,7 @@ void led_task(void *pvParameters)
         vTaskDelay(1000);
         GPIO_SetBits(GPIOB, GPIO_Pin_5);
         vTaskDelay(1000);
+        printf("led_task\r\n");
     }
 }
 

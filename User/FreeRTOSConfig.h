@@ -28,6 +28,11 @@
 #define FREERTOS_CONFIG_H
 
 #include "stm32f10x.h"
+#include "stdio.h"
+
+//断言
+#define vAssertCalled(char,int) printf("Error:%s,%d\r\n",char,int)
+#define configASSERT(x) if((x)==0) vAssertCalled(__FILE__,__LINE__)
 
 /*-----------------------------------------------------------
  * Application specific definitions.
@@ -46,16 +51,16 @@
 #define xPortSysTickHandler SysTick_Handler
 
 #define configUSE_PREEMPTION                                        1
-#define configUSE_PORT_OPTIMISED_TASK_SELECTION                     0
+#define configUSE_PORT_OPTIMISED_TASK_SELECTION                     0  // 为0用软件方法选择下一个要运行的任务，为1用硬件方法选择下一个要运行的任务。STM32可以为1。
 #define configUSE_TICKLESS_IDLE                                     0
 #define configCPU_CLOCK_HZ                                          ( ( unsigned long ) 72000000 )
 // #define configSYSTICK_CLOCK_HZ                                      1000000
 #define configTICK_RATE_HZ                                          ( ( TickType_t ) 1000 )
 #define configMAX_PRIORITIES                                        10
-#define configMINIMAL_STACK_SIZE                                    ( ( unsigned short ) 128 )
+#define configMINIMAL_STACK_SIZE                                    ( ( unsigned short ) 128 )  // 字为单位，STM32中一个字为4个字节
 #define configMAX_TASK_NAME_LEN                                     16
-#define configUSE_16_BIT_TICKS                                      0
-#define configIDLE_SHOULD_YIELD                                     1
+#define configUSE_16_BIT_TICKS                                      0  // 为 1 的时候 TickType_t 就是 16 位的，为 0 的话 TickType_t 就是 32 位的
+#define configIDLE_SHOULD_YIELD                                     0  // 当为 0 的时候空闲任务不会为其他处于同优先级的任务让出 CPU 使用权
 // #define configUSE_TASK_NOTIFICATIONS                                1
 // #define configTASK_NOTIFICATION_ARRAY_ENTRIES                       3
 #define configUSE_MUTEXES                                           1
@@ -80,7 +85,7 @@
 // #define configSUPPORT_STATIC_ALLOCATION                             1
 #define configSUPPORT_DYNAMIC_ALLOCATION                            1
 #define configTOTAL_HEAP_SIZE                                       ( ( size_t ) ( 40 * 1024 ) )
-// #define configAPPLICATION_ALLOCATED_HEAP                            1
+// #define configAPPLICATION_ALLOCATED_HEAP                            0  // 如果为1就要自己实现堆分配函数
 // #define configSTACK_ALLOCATION_FROM_SEPARATE_HEAP                   1
 
 /* Hook function related definitions. */
@@ -128,19 +133,28 @@ to exclude the API function. */
 #define INCLUDE_xTaskGetHandle                  0
 #define INCLUDE_xTaskResumeFromISR              1
 
+/* Use the system definition, if there is one. */
+#ifdef __NVIC_PRIO_BITS
+	#define configPRIO_BITS								__NVIC_PRIO_BITS
+#else
+	#define configPRIO_BITS								4	 /* 4 priority levels. */
+#endif
+
+#define configLIBRARY_LOWEST_INTERRUPT_PRIORITY			0x0F  // 设置最低优先级。stm32用了4位优先级，同时数字最大优先级最低，所以4位都是1时优先级最低，换成十进制就是15.
+#define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY	5  // FreeRTOS可管理的最大优先级，STM32的中断里数字更小的就管不了。
 /* This is the raw value as per the Cortex-M3 NVIC.  Values can be 255
 (lowest) to 0 (1?) (highest). */
-#define configKERNEL_INTERRUPT_PRIORITY 		255
+#define configKERNEL_INTERRUPT_PRIORITY 		( configLIBRARY_LOWEST_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )  // 优先级寄存器高四位有效，所以移动到高四位去
 /* !!!! configMAX_SYSCALL_INTERRUPT_PRIORITY must not be set to zero !!!!
 See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
-#define configMAX_SYSCALL_INTERRUPT_PRIORITY 	191 /* equivalent to 0xb0, or priority 11. */
+#define configMAX_SYSCALL_INTERRUPT_PRIORITY 	( configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY << ( 8 - configPRIO_BITS ) )
 
 
 /* This is the value being used as per the ST library which permits 16
 priority values, 0 to 15.  This must correspond to the
 configKERNEL_INTERRUPT_PRIORITY setting.  Here 15 corresponds to the lowest
 NVIC value of 255. */
-#define configLIBRARY_KERNEL_INTERRUPT_PRIORITY	15
+#define configLIBRARY_KERNEL_INTERRUPT_PRIORITY		(configLIBRARY_LOWEST_INTERRUPT_PRIORITY)
 
 #endif /* FREERTOS_CONFIG_H */
 

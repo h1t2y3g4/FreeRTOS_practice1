@@ -79,7 +79,6 @@ xComPortHandle xSerialPortInitMinimal( unsigned long ulWantedBaud, unsigned port
 {
 xComPortHandle xReturn;
 USART_InitTypeDef USART_InitStructure;
-USART_ClockInitTypeDef USART_ClockInitStruct;
 NVIC_InitTypeDef NVIC_InitStructure;
 GPIO_InitTypeDef GPIO_InitStructure;
 
@@ -111,12 +110,6 @@ GPIO_InitTypeDef GPIO_InitStructure;
 		USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
 		USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
 		USART_Init( USART1, &USART_InitStructure );
-
-		// USART_ClockInitStruct.USART_Clock = USART_Clock_Disable;
-		// USART_ClockInitStruct.USART_CPOL = USART_CPOL_Low;
-		// USART_ClockInitStruct.USART_CPHA = USART_CPHA_2Edge;
-		// USART_ClockInitStruct.USART_LastBit = USART_LastBit_Disable;
-		// USART_ClockInit( USART1, &USART_ClockInitStruct );
 
 		USART_ITConfig( USART1, USART_IT_RXNE, ENABLE );
 

@@ -101,11 +101,10 @@ void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority )
 					NULL );						/* A handle is not required, so just pass NULL. */
 }
 /*-----------------------------------------------------------*/
-
+extern void vRegisterSampleCLICommands(void);
 static void prvUARTCommandConsoleTask( void *pvParameters )
 {
 signed char cRxedChar;
-signed char cRxedChar_last;
 uint8_t ucInputIndex = 0;
 char *pcOutputString;
 static char cInputString[ cmdMAX_INPUT_SIZE ], cLastInputString[ cmdMAX_INPUT_SIZE ];
@@ -113,7 +112,7 @@ BaseType_t xReturned;
 xComPortHandle xPort;
 
 	( void ) pvParameters;
-
+	vRegisterSampleCLICommands();
 	/* Obtain the address of the output buffer.  Note there is no mutual
 	exclusion on this buffer as it is assumed only one command console interface
 	will be used at any one time. */
@@ -207,7 +206,6 @@ xComPortHandle xPort;
 					}
 				}
 			}
-			cRxedChar_last = cRxedChar;
 
 			/* Must ensure to give the mutex back. */
 			xSemaphoreGive( xTxMutex );
