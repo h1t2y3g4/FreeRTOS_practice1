@@ -2,7 +2,13 @@
     "files.associations": {
         "stm32f10x.h": "c",
         "*.bk": "cpp",
-        "freertos.h": "c"
+        "freertos.h": "c",
+        "task.h": "c",
+        "queue.h": "c"
     },
-    "marscode.chatLanguage": "cn"
+    "marscode.chatLanguage": "cn",
+    "marscode.codeCompletionPro": {
+        "enableCodeCompletionPro": false
+    },
+    "marscode.enableInlineCommand": true
 }

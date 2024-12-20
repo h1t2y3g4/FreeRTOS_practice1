@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\CMSIS;.\System;.\STM32F10x_StdPeriph_Driver\inc;.\FreeRTOS\include;.\FreeRTOS\portable\RVDS\ARM_CM3;..\User;..\User\cli</IncludePath>
+              <IncludePath>.\CMSIS;.\System;.\STM32F10x_StdPeriph_Driver\inc;.\FreeRTOS\include;.\FreeRTOS\portable\RVDS\ARM_CM3;..\User;..\User\cli;..\User\led;..\User\key;..\User\touch</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -557,6 +557,21 @@
               <FileName>UARTCommandConsole.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\cli\UARTCommandConsole.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\led\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\key\key.c</FilePath>
+            </File>
+            <File>
+              <FileName>touch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\touch\touch.c</FilePath>
             </File>
           </Files>
         </Group>

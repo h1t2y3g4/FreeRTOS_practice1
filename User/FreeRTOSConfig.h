@@ -67,9 +67,9 @@
 // #define configUSE_RECURSIVE_MUTEXES                                 0
 // #define configUSE_COUNTING_SEMAPHORES                               0
 // #define configUSE_ALTERNATIVE_API                                   0 /* Deprecated! */
-// #define configQUEUE_REGISTRY_SIZE                                   10
-// #define configUSE_QUEUE_SETS                                        0
-// #define configUSE_TIME_SLICING                                      0
+#define configQUEUE_REGISTRY_SIZE                                   10  // 队列集的数量
+#define configUSE_QUEUE_SETS                                        0  // 为1的时候可以使用队列集，为0的时候不可以使用队列集
+#define configUSE_TIME_SLICING                                      1  // 为1多个任务可以共用同一个优先级，为0则不可以
 // #define configUSE_NEWLIB_REENTRANT                                  0
 // #define configENABLE_BACKWARD_COMPATIBILITY                         0
 // #define configNUM_THREAD_LOCAL_STORAGE_POINTERS                     5
@@ -82,7 +82,7 @@
 #define configCOMMAND_INT_MAX_OUTPUT_SIZE                           1024
 
 /* Memory allocation related definitions. */
-// #define configSUPPORT_STATIC_ALLOCATION                             1
+// #define configSUPPORT_STATIC_ALLOCATION                             0  // 1表示支持静态创建任务的方法，同时要自己申请堆栈。
 #define configSUPPORT_DYNAMIC_ALLOCATION                            1
 #define configTOTAL_HEAP_SIZE                                       ( ( size_t ) ( 40 * 1024 ) )
 // #define configAPPLICATION_ALLOCATED_HEAP                            0  // 如果为1就要自己实现堆分配函数

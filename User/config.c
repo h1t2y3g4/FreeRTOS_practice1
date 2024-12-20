@@ -2,6 +2,8 @@
 #include "stdio.h"
 
 
+task_handle_t tasks;
+
 void HardFault_Handler(void)
 {
     /* if Hard Fault exception occurs, go to infinite loop */
