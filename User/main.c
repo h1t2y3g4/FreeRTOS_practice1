@@ -22,9 +22,18 @@ void tasks_init(void)
     xTaskCreate(touch_task, TASK_TOUCH_NAME, TASK_TOUCH_STACKSIZE, NULL, TASK_TOUCH_PRIO, &tasks.touch);
 }
 
+void queue_init(void)
+{
+    queues.led = xQueueCreate(10, sizeof(uint32_t));
+    if (!queues.led) {
+        printf("create led queue fail\r\n");
+    }
+}
+
 int main(void)
 {
     hardware_init();
     tasks_init();
+    queue_init();
     vTaskStartScheduler();
 }

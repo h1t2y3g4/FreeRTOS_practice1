@@ -3,6 +3,7 @@
 
 
 task_handle_t tasks;
+queue_handle_t queues;
 
 void HardFault_Handler(void)
 {

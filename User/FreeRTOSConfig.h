@@ -68,7 +68,7 @@
 // #define configUSE_COUNTING_SEMAPHORES                               0
 // #define configUSE_ALTERNATIVE_API                                   0 /* Deprecated! */
 #define configQUEUE_REGISTRY_SIZE                                   10  // 队列集的数量
-#define configUSE_QUEUE_SETS                                        0  // 为1的时候可以使用队列集，为0的时候不可以使用队列集
+#define configUSE_QUEUE_SETS                                        1  // 为1的时候可以使用队列集，为0的时候不可以使用队列集
 #define configUSE_TIME_SLICING                                      1  // 为1多个任务可以共用同一个优先级，为0则不可以
 // #define configUSE_NEWLIB_REENTRANT                                  0
 // #define configENABLE_BACKWARD_COMPATIBILITY                         0

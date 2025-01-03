@@ -27,6 +27,12 @@ typedef struct
     TaskHandle_t touch;
 } task_handle_t;
 
+typedef struct
+{
+    QueueHandle_t led;
+} queue_handle_t;
+
 extern task_handle_t tasks;
+extern queue_handle_t queues;
 
 #endif
